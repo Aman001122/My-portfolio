@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">MyPortfolio</div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <h1>Hello, I'm Amandeep</h1>
+            <p>A passionate web developer & designer creating modern and visually engaging websites.</p>
+            <a href="#projects" class="btn-primary">See My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>I’m Amandeep, a passionate web developer with a strong focus on creating dynamic and user-friendly
+                websites. With expertise in front-end and back-end technologies like Python, JavaScript, and SQL, I
+                thrive on solving complex problems and building responsive, efficient web solutions. I’m always eager to
+                learn new skills and keep up with the latest industry trends to deliver innovative and impactful
+                results. I believe in the power of design and code to transform ideas into engaging digital experiences.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="project-gallery">
+                <div class="project-card">
+                    <img src="https://thumbs.dreamstime.com/b/habits-abstract-flat-background-design-illustration-isolated-129481874.jpg"
+                        alt="Project 1">
+                    <h3><a href="https://github.com/Aman001122/Harvard_Final_Project" target="_blank">Habit Monitor</a>
+                    </h3>
+                    <p>The Habit Tracker is a simple Python application designed to help users establish and maintain
+                        healthy habits. With this program, users can add habits they want to track, log their
+                        completion, and view statistics to monitor their progress over time.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://th.bing.com/th/id/R.0cbf0901bfdbaf6dd8ad73ef616c92d3?rik=rdw0GgIm4Vmg0Q&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f360-3609272_free-png-coming-soon-coming-soon-vector-png.png&ehk=tOZVGRX8N3%2fzNiw4IHhwmX7%2fkScIYgD%2fjs5pnmiij%2bs%3d&risl=&pid=ImgRaw&r=0"
+                        alt="Project 1">>
+                    <h3>Project Two</h3>
+                    <p></p>
+                </div>
+                <div class="project-card">
+                    <img src="https://th.bing.com/th/id/R.0cbf0901bfdbaf6dd8ad73ef616c92d3?rik=rdw0GgIm4Vmg0Q&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f360-3609272_free-png-coming-soon-coming-soon-vector-png.png&ehk=tOZVGRX8N3%2fzNiw4IHhwmX7%2fkScIYgD%2fjs5pnmiij%2bs%3d&risl=&pid=ImgRaw&r=0"
+                        alt="Project 1">
+                    <h3>Project Three</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <!-- Skill 1: Python -->
+                <div class="skill-item">
+                    <h3>Python</h3>
+                    <div class="skill-bar">
+                        <!-- Adjust the skill level percentage -->
+                        <div style="--skill-level: 90%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2: C -->
+                <div class="skill-item">
+                    <h3>C</h3>
+                    <div class="skill-bar">
+                        <!-- Adjust the skill level percentage -->
+                        <div style="--skill-level: 85%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3: SQL -->
+                <div class="skill-item">
+                    <h3>SQL</h3>
+                    <div class="skill-bar">
+                        <!-- Adjust the skill level percentage -->
+                        <div style="--skill-level: 80%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4: Linux -->
+                <div class="skill-item">
+                    <h3>Linux</h3>
+                    <div class="skill-bar">
+                        <!-- Adjust the skill level percentage -->
+                        <div style="--skill-level: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 5: JavaScript -->
+                <div class="skill-item">
+                    <h3>JavaScript</h3>
+                    <div class="skill-bar">
+                        <!-- Adjust the skill level percentage -->
+                        <div style="--skill-level: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <p>Have a project in mind or just want to say hello? Feel free to reach out to me!</p>
+            <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; [2024] [Amandeep]. All Rights Reserved.</p>
+            <p>Connect with me on:
+                <a href="https://www.linkedin.com/in/amandeep-jakhar-019ba8244/" target="_blank">LinkedIn</a> |
+                <a href="https://github.com/Aman001122" target="_blank">GitHub</a> |
+                <a href="https://www.instagram.com/_a.manndeep/" target="_blank">Instagram</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
