@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Amandeep Jakhar — Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #FF6600;
+    --orange-light: #FF8833;
+    --orange-dim: rgba(255,102,0,0.12);
+    --bg: #0a0906;
+    --bg2: #111008;
+    --bg3: #1a1710;
+    --surface: #1f1c14;
+    --border: rgba(255,255,255,0.08);
+    --border-orange: rgba(255,102,0,0.3);
+    --text: #f0ece2;
+    --text-muted: #7a7060;
+    --text-mid: #b0a890;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Instrument Serif', serif;
+    --sans: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── CURSOR ─── */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--orange);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease, opacity 0.2s;
+    transform: translate(-50%,-50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(255,102,0,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,9,6,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    width: 36px; height: 36px;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-weight: 800; font-size: 16px;
+    color: #fff; letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--text-muted); text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--orange); text-decoration: none;
+    border: 1px solid var(--border-orange);
+    padding: 8px 18px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--orange); color: #fff; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 80%);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,102,0,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 820px;
+    margin-bottom: 32px;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--orange);
+  }
+  .hero-sub {
+    font-size: 18px; font-weight: 400;
+    color: var(--text-mid);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn-primary {
+    background: var(--orange); color: #fff;
+    border: none; padding: 14px 32px;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.03em; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .btn-secondary {
+    color: var(--text-muted); font-size: 14px; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.03em;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--text); }
+  .btn-secondary svg { transition: transform 0.2s; }
+  .btn-secondary:hover svg { transform: translateX(4px); }
+  .hero-scroll-hint {
+    position: absolute; bottom: 40px; left: 48px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-muted); letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0; animation: fadeUp 0.7s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--text-muted);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute; left: -100%; top: 0;
+    width: 100%; height: 100%;
+    background: var(--orange);
+    animation: scanLine 2s 1.5s infinite;
+  }
+
+  /* ─── MARQUEE BANNER ─── */
+  .marquee-wrap {
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    background: var(--bg2);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 0;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-item {
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.12em; color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 0 40px;
+    display: inline-flex; align-items: center; gap: 16px;
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 48px; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-desc {
+    font-size: 17px; color: var(--text-mid);
+    max-width: 520px; line-height: 1.75;
+  }
+
+  /* ─── ABOUT / STORY ─── */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+    max-width: 1200px;
+  }
+  .about-left { }
+  .story-block {
+    margin-top: 48px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .story-item {
+    display: flex; gap: 24px;
+    padding: 28px 0;
+    border-bottom: 0.5px solid var(--border);
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .story-item.visible { opacity: 1; transform: none; }
+  .story-num {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--orange); padding-top: 4px;
+    flex-shrink: 0; width: 28px;
+  }
+  .story-text { }
+  .story-text strong {
+    display: block; font-size: 15px; font-weight: 600;
+    color: var(--text); margin-bottom: 6px;
+  }
+  .story-text p {
+    font-size: 14px; color: var(--text-muted); line-height: 1.65;
+  }
+  .about-right { padding-top: 80px; }
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .stat-cell {
+    background: var(--bg2);
+    padding: 28px 24px;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 40px; color: var(--text);
+    line-height: 1; margin-bottom: 6px;
+  }
+  .stat-num span { color: var(--orange); }
+  .stat-label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-muted); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .skills-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .skill-tag {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.05em;
+    border: 0.5px solid var(--border-orange);
+    color: var(--orange); padding: 6px 14px;
+    background: var(--orange-dim);
+    transition: background 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { background: var(--orange); color: #fff; }
+
+  /* ─── PROJECTS ─── */
+  .projects-section { background: var(--bg2); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-top: 60px;
+  }
+  .project-card {
+    background: var(--bg2);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: background 0.3s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--orange);
+    transition: width 0.4s ease;
+  }
+  .project-card:hover::before { width: 100%; }
+  .project-card:hover { background: var(--surface); }
+  .project-index {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--border-orange); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .project-name {
+    font-family: var(--serif); font-size: 22px;
+    line-height: 1.2; margin-bottom: 14px;
+    color: var(--text);
+  }
+  .project-desc {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 24px;
+  }
+  .project-stats {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 24px;
+  }
+  .project-stat {
+    font-family: var(--mono); font-size: 11px;
+    background: var(--bg3); color: var(--text-mid);
+    padding: 5px 10px; letter-spacing: 0.04em;
+  }
+  .project-tech {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tech-pill {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); background: transparent;
+    border: 0.5px solid var(--border);
+    padding: 4px 10px;
+  }
+  .project-repo-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--orange); text-decoration: none;
+    border: 0.5px solid var(--border-orange);
+    padding: 8px 16px;
+    margin-top: 20px;
+    background: transparent;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s, background 0.2s, color 0.2s;
+    pointer-events: none;
+  }
+  .project-card:hover .project-repo-btn {
+    opacity: 1; transform: none;
+    pointer-events: auto;
+  }
+  .project-repo-btn:hover {
+    background: var(--orange); color: #fff;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin-top: 60px;
+  }
+  .exp-card {
+    border-left: 2px solid var(--orange);
+    padding-left: 28px;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .exp-card.visible { opacity: 1; transform: none; }
+  .exp-role {
+    font-family: var(--serif); font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .exp-company {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--orange); letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .exp-period {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-muted); margin-bottom: 20px;
+  }
+  .exp-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-points li {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65; padding-left: 14px;
+    position: relative;
+  }
+  .exp-points li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--orange); font-size: 12px;
+  }
+
+  /* ─── CERTS ─── */
+  .certs-section { background: var(--bg3); }
+  .certs-grid {
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-top: 60px;
+    max-width: 800px;
+  }
+  .cert-row {
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 28px;
+    transition: background 0.2s;
+    opacity: 0; transform: translateX(20px);
+    transition: opacity 0.5s, transform 0.5s, background 0.2s;
+  }
+  .cert-row.visible { opacity: 1; transform: none; }
+  .cert-row:hover { background: var(--surface); }
+  .cert-left { display: flex; align-items: center; gap: 20px; }
+  .cert-icon {
+    width: 36px; height: 36px;
+    background: var(--orange-dim);
+    border: 0.5px solid var(--border-orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 10px; color: var(--orange);
+    letter-spacing: 0.05em; flex-shrink: 0;
+  }
+  .cert-name {
+    font-size: 15px; font-weight: 500; color: var(--text);
+  }
+  .cert-org {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-muted); margin-top: 2px;
+  }
+  .cert-date {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--orange); letter-spacing: 0.08em;
+  }
+
+  /* ─── ASPIRATION ─── */
+  .aspiration-section {
+    background: var(--bg);
+    border-top: 0.5px solid var(--border);
+  }
+  .aspiration-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1100px;
+  }
+  .aspiration-quote {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .aspiration-quote em { color: var(--orange); font-style: italic; }
+  .aspiration-pills {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .asp-pill {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 24px;
+    border: 0.5px solid var(--border);
+    background: var(--bg2);
+    transition: border-color 0.3s, background 0.3s;
+    opacity: 0; transform: translateX(20px);
+    transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+  }
+  .asp-pill.visible { opacity: 1; transform: none; }
+  .asp-pill:hover { border-color: var(--border-orange); background: var(--orange-dim); }
+  .asp-icon {
+    font-size: 20px; margin-top: 2px; flex-shrink: 0;
+  }
+  .asp-title {
+    font-size: 14px; font-weight: 600; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .asp-desc {
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+  }
+
+  /* ─── CONTACT / FOOTER ─── */
+  .contact-section {
+    background: var(--bg2);
+    border-top: 0.5px solid var(--border);
+    text-align: center;
+  }
+  .contact-headline {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 68px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .contact-headline em { color: var(--orange); font-style: italic; }
+  .contact-sub {
+    font-size: 16px; color: var(--text-muted);
+    margin-bottom: 48px; max-width: 440px; margin-inline: auto;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 20px;
+    flex-wrap: wrap; margin-bottom: 80px;
+  }
+  .contact-link {
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    border: 0.5px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover {
+    color: var(--orange);
+    border-color: var(--border-orange);
+    background: var(--orange-dim);
+  }
+  footer {
+    padding: 24px 48px;
+    border-top: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-muted); letter-spacing: 0.05em;
+  }
+  .footer-logo {
+    width: 28px; height: 28px;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-weight: 800; font-size: 11px; color: #fff;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scanLine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 860px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    section { padding: 72px 24px; }
+    .about-layout, .exp-layout, .aspiration-inner { grid-template-columns: 1fr; gap: 48px; }
+    .about-right { padding-top: 0; }
+    footer { padding: 20px 24px; }
+    .contact-section { padding: 72px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AJ</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#aspire">Aspiring</a>
+    <a href="#contact">Contact</a>
+    <a href="https://bit.ly/amandeep_jakhar_resume" target="_blank">Résumé ↗</a>
+  </div>
+  <a href="mailto:amandeepjakhar41@gmail.com" class="nav-cta">Say Hello →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">Jaipur, Rajasthan · Open to Opportunities</p>
+  <h1 class="hero-headline">
+    Amandeep Jakhar.<br />
+    Cloud. Security.<br />
+    <em>Automation in Motion.</em>
+  </h1>
+  <p class="hero-sub">
+    Python &amp; C++ developer with a passion for backend systems — and a relentless drive toward cloud, DevOps, and cybersecurity.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View My Work</a>
+    <a href="#contact" class="btn-secondary">
+      Let's connect
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    SCROLL TO EXPLORE
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>C++</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Backend Systems</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Data Structures</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SQL</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Git · GitHub</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Linux Shell</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>OOP &amp; Algorithms</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>JSON Storage</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Workflow Automation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Python</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>C++</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Backend Systems</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Data Structures</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SQL</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Git · GitHub</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Linux Shell</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>OOP &amp; Algorithms</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>JSON Storage</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Workflow Automation</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-left">
+      <p class="section-label">// 01 — about</p>
+      <h2 class="section-title">The story<br /><em style="font-style:italic;color:var(--orange);">so far.</em></h2>
+      <p class="section-desc">
+        B.Tech CS student at a top-tier engineering university. I spend my nights writing systems, debugging edge cases, and thinking about how things work under the hood.
+      </p>
+      <div class="story-block">
+        <div class="story-item">
+          <div class="story-num">01</div>
+          <div class="story-text">
+            <strong>Started with fundamentals</strong>
+            <p>Built a foundation in Python and C++ — not just the syntax, but understanding why programs behave the way they do.</p>
+          </div>
+        </div>
+        <div class="story-item">
+          <div class="story-num">02</div>
+          <div class="story-text">
+            <strong>Took it to production-like scale</strong>
+            <p>Developed real-world simulations: banking systems, OPD orchestration, library engines — each one tackling real complexity.</p>
+          </div>
+        </div>
+        <div class="story-item">
+          <div class="story-num">03</div>
+          <div class="story-text">
+            <strong>Interned, shipped, and learned</strong>
+            <p>4 months at Unified Bhubaneswar building Python applications for real workflows — error handling, validation, reliability.</p>
+          </div>
+        </div>
+        <div class="story-item">
+          <div class="story-num">04</div>
+          <div class="story-text">
+            <strong>Now setting sights higher</strong>
+            <p>Actively learning cloud infrastructure, DevOps pipelines, and cybersecurity fundamentals. The next chapter is already being written.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="stat-grid">
+        <div class="stat-cell">
+          <div class="stat-num">9<span>+</span></div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Months Interned</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">2027</div>
+          <div class="stat-label">Graduating</div>
+        </div>
+      </div>
+      <p class="section-label" style="margin-bottom:14px;">// Tech Stack</p>
+      <div class="skills-list">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C++14</span>
+        <span class="skill-tag">C++ STL</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Shell</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">JSON Storage</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">DSA</span>
+        <span class="skill-tag">DBMS</span>
+        <span class="skill-tag">OS Concepts</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <p class="section-label">// 02 — projects</p>
+  <h2 class="section-title">9+ projects<br /><em style="font-style:italic;color:var(--orange);">and counting.</em></h2>
+  <p class="section-desc">Auswahl meiner besten Arbeiten — a curated selection from a larger body of work. Each of these tackles genuine complexity: real state management, real data flows, real edge cases. <span style="font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:0.05em;">[ selected highlights ]</span></p>
+  <div class="projects-grid">
+
+    <div class="project-card" data-repo="https://github.com/Aman001122/Updated_Banking_System">
+      <div class="project-index">PROJECT_01</div>
+      <h3 class="project-name">Banking Transaction System</h3>
+      <p class="project-desc">ATM simulation with full account lifecycle: PIN-based auth, deposits, withdrawals, fund transfers, and persistent transaction history.</p>
+      <div class="project-stats">
+        <span class="project-stat">50+ user accounts</span>
+        <span class="project-stat">100+ transactions</span>
+        <span class="project-stat">Mini-statements</span>
+      </div>
+      <div class="project-tech">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">JSON persistence</span>
+        <span class="tech-pill">Auth logic</span>
+      </div>
+      <a class="project-repo-btn" href="https://github.com/Aman001122/Updated_Banking_System" target="_blank">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View Repository ↗
+      </a>
+    </div>
+
+    <div class="project-card" data-repo="https://github.com/Aman001122/OPD-Orchestration">
+      <div class="project-index">PROJECT_02</div>
+      <h3 class="project-name">OPD Orchestration Engine</h3>
+      <p class="project-desc">State-driven patient queue system for hospital outpatient departments. Handles multi-doctor token generation and full patient flow tracking.</p>
+      <div class="project-stats">
+        <span class="project-stat">5+ doctors</span>
+        <span class="project-stat">100+ patient tokens</span>
+        <span class="project-stat">Stateful workflow</span>
+      </div>
+      <div class="project-tech">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">State machine</span>
+        <span class="tech-pill">JSON storage</span>
+      </div>
+      <a class="project-repo-btn" href="https://github.com/Aman001122/OPD-Orchestration" target="_blank">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View Repository ↗
+      </a>
+    </div>
+
+    <div class="project-card" data-repo="https://github.com/Aman001122/Library-Transaction-Compliance-Engine">
+      <div class="project-index">PROJECT_03</div>
+      <h3 class="project-name">Library Compliance Engine</h3>
+      <p class="project-desc">Full-cycle library circulation system — issuance, returns, fine tracking, member/book indexing, and compliance rules baked in.</p>
+      <div class="project-stats">
+        <span class="project-stat">200+ simulated books</span>
+        <span class="project-stat">Fine calculation</span>
+        <span class="project-stat">Quick search index</span>
+      </div>
+      <div class="project-tech">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Transactional logic</span>
+        <span class="tech-pill">Rule engine</span>
+      </div>
+      <a class="project-repo-btn" href="https://github.com/Aman001122/Library-Transaction-Compliance-Engine" target="_blank">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View Repository ↗
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// 03 — experience</p>
+  <h2 class="section-title">Where I've<br /><em style="font-style:italic;color:var(--orange);">made an impact.</em></h2>
+  <div class="exp-layout">
+    <div class="exp-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div class="exp-role" style="margin-bottom:0;">Backend Developer Intern</div>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.08em;background:var(--orange-dim);color:var(--orange);border:0.5px solid var(--border-orange);padding:3px 10px;">PRESENT</span>
+      </div>
+      <div class="exp-company">Think Future Technologies · Gurgaon</div>
+      <div class="exp-period">Apr 2026 – Jul 2026 · Ongoing</div>
+      <ul class="exp-points">
+        <li>Working at a Gurgaon-based product and services company known for building enterprise-grade software solutions across fintech, edtech, and SaaS verticals</li>
+        <li>Contributing to backend API development — designing RESTful services, handling data flow between layers, and writing clean, maintainable server-side code</li>
+        <li>Collaborating with senior engineers on real production systems — gaining exposure to code review culture, Git-based workflows, and deployment pipelines</li>
+        <li>Building hands-on experience in backend architecture patterns, database interactions, and structured error handling at scale</li>
+      </ul>
+    </div>
+    <div class="exp-card" style="transition-delay: 0.15s">
+      <div class="exp-role">Python Development Intern</div>
+      <div class="exp-company">Unified Bhubaneswar</div>
+      <div class="exp-period">Nov 2025 – Feb 2026 · 4 months</div>
+      <ul class="exp-points">
+        <li>Developed 5+ Python applications with file handling and JSON-based data persistence</li>
+        <li>Designed transaction processing logic and structured, maintainable workflows</li>
+        <li>Built robust error handling and input validation mechanisms</li>
+        <li>Debugged and tested applications iteratively to improve reliability under edge-case conditions</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--bg);">
+  <p class="section-label">// 04 — education</p>
+  <h2 class="section-title">Built on<br /><em style="font-style:italic;color:var(--orange);">strong foundations.</em></h2>
+  <div style="max-width:800px;margin-top:48px;">
+    <div style="border-left:2px solid var(--orange);padding-left:28px;">
+      <div style="font-family:var(--serif);font-size:22px;color:var(--text);margin-bottom:6px;">B.Tech — Computer Science &amp; Engineering</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:0.08em;margin-bottom:4px;">2023 – 2027</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted);">Final Year Student</span>
+        <span style="width:4px;height:4px;background:var(--border-orange);border-radius:50%;display:inline-block;"></span>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.08em;background:var(--orange-dim);color:var(--orange);border:0.5px solid var(--border-orange);padding:3px 10px;">PURSUING</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+        <div style="background:var(--bg2);border:0.5px solid var(--border);padding:16px 18px;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--orange);letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">Core Subjects</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">Data Structures &amp; Algorithms<br/>Operating Systems<br/>Database Management<br/>Computer Networks</div>
+        </div>
+        <div style="background:var(--bg2);border:0.5px solid var(--border);padding:16px 18px;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--orange);letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">Focus Areas</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">Backend Development<br/>Systems Programming<br/>Competitive Programming<br/>Cloud &amp; Security Fundamentals</div>
+        </div>
+        <div style="background:var(--bg2);border:0.5px solid var(--border);padding:16px 18px;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--orange);letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">Languages Used</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">Python · C++14<br/>SQL · Shell<br/>C++ STL<br/>MySQL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section class="certs-section">
+  <p class="section-label">// 05 — certifications</p>
+  <h2 class="section-title">Credentials<br /><em style="font-style:italic;color:var(--orange);">earned.</em></h2>
+  <div class="certs-grid">
+    <div class="cert-row">
+      <div class="cert-left">
+        <div class="cert-icon">CS50</div>
+        <div>
+          <div class="cert-name">CS50 — Computer Science in Python</div>
+          <div class="cert-org">Harvard University</div>
+        </div>
+      </div>
+      <div class="cert-date">NOV 2024</div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-left">
+        <div class="cert-icon">PY</div>
+        <div>
+          <div class="cert-name">Python for Everyone</div>
+          <div class="cert-org">University of Michigan</div>
+        </div>
+      </div>
+      <div class="cert-date">JUN 2023</div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-left">
+        <div class="cert-icon">C</div>
+        <div>
+          <div class="cert-name">C for Everyone</div>
+          <div class="cert-org">University of California, Santa Cruz</div>
+        </div>
+      </div>
+      <div class="cert-date">JUL 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- ASPIRATION -->
+<section id="aspire" class="aspiration-section">
+  <div class="aspiration-inner">
+    <div>
+      <p class="section-label">// 06 — what's next</p>
+      <h2 class="section-title aspiration-quote">
+        Not there yet.<br />
+        <em>Working toward it</em><br />
+        every single day.
+      </h2>
+      <p class="section-desc" style="margin-top:20px;">
+        The backend foundations are solid. Now I'm pushing into the domains that excite me most — cloud infrastructure, DevOps automation, and cybersecurity.
+      </p>
+    </div>
+    <div class="aspiration-pills">
+      <div class="asp-pill">
+        <div class="asp-icon">☁️</div>
+        <div>
+          <div class="asp-title">Cloud Infrastructure</div>
+          <div class="asp-desc">Learning AWS, GCP fundamentals — compute, storage, networking. Aspiring to architect scalable, resilient cloud-native systems.</div>
+        </div>
+      </div>
+      <div class="asp-pill">
+        <div class="asp-icon">⚙️</div>
+        <div>
+          <div class="asp-title">DevOps & CI/CD</div>
+          <div class="asp-desc">Exploring Docker, GitHub Actions, infrastructure-as-code. The pipeline from code to production fascinates me.</div>
+        </div>
+      </div>
+      <div class="asp-pill">
+        <div class="asp-icon">🔐</div>
+        <div>
+          <div class="asp-title">Cybersecurity</div>
+          <div class="asp-desc">Studying threat models, network security, and ethical hacking foundations. Security-first thinking is non-negotiable in modern systems.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section" style="position:relative;overflow:hidden;padding-bottom:0;">
+  <p class="section-label" style="text-align:center;">// 07 — contact</p>
+  <h2 class="contact-headline">Let's build<br /><em>something.</em></h2>
+  <p class="contact-sub">Open to internships, collaborations, and conversations with people building interesting things.</p>
+  <div class="contact-links">
+    <a href="mailto:amandeepjakhar41@gmail.com" class="contact-link">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      amandeepjakhar41@gmail.com
+    </a>
+    <a href="https://github.com/Aman001122" target="_blank" class="contact-link">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub Profile
+    </a>
+    <a href="https://www.linkedin.com/in/amandeep-jakhar/" target="_blank" class="contact-link">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn Profile
+    </a>
+  </div>
+
+  <!-- Jaipur Hawa Mahal silhouette -->
+  <div style="width:100%;line-height:0;margin-top:48px;position:relative;">
+    <svg viewBox="0 0 1440 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="display:block;width:100%;opacity:0.13;">
+      <!-- BASE GROUND LINE -->
+      <rect x="0" y="268" width="1440" height="12" fill="#FF6600"/>
+
+      <!-- === LEFT WING === -->
+      <!-- Tower L3 -->
+      <rect x="30" y="210" width="28" height="58" fill="#FF6600"/>
+      <polygon points="30,210 44,190 58,210" fill="#FF6600"/>
+      <rect x="36" y="196" width="5" height="6" fill="#FF6600"/>
+      <rect x="43" y="196" width="5" height="6" fill="#FF6600"/>
+      <rect x="33" y="228" width="6" height="8" fill="#111008"/>
+      <rect x="42" y="228" width="6" height="8" fill="#111008"/>
+      <rect x="33" y="244" width="6" height="8" fill="#111008"/>
+      <rect x="42" y="244" width="6" height="8" fill="#111008"/>
+
+      <!-- Tower L2 -->
+      <rect x="68" y="195" width="32" height="73" fill="#FF6600"/>
+      <polygon points="68,195 84,172 100,195" fill="#FF6600"/>
+      <rect x="74" y="178" width="5" height="7" fill="#FF6600"/>
+      <rect x="83" y="178" width="5" height="7" fill="#FF6600"/>
+      <rect x="72" y="212" width="7" height="9" fill="#111008"/>
+      <rect x="82" y="212" width="7" height="9" fill="#111008"/>
+      <rect x="72" y="230" width="7" height="9" fill="#111008"/>
+      <rect x="82" y="230" width="7" height="9" fill="#111008"/>
+      <rect x="72" y="248" width="7" height="9" fill="#111008"/>
+      <rect x="82" y="248" width="7" height="9" fill="#111008"/>
+
+      <!-- Tower L1 (tallest left side) -->
+      <rect x="112" y="175" width="36" height="93" fill="#FF6600"/>
+      <polygon points="112,175 130,148 148,175" fill="#FF6600"/>
+      <rect x="118" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="126" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="134" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="116" y="192" width="8" height="10" fill="#111008"/>
+      <rect x="128" y="192" width="8" height="10" fill="#111008"/>
+      <rect x="116" y="212" width="8" height="10" fill="#111008"/>
+      <rect x="128" y="212" width="8" height="10" fill="#111008"/>
+      <rect x="116" y="232" width="8" height="10" fill="#111008"/>
+      <rect x="128" y="232" width="8" height="10" fill="#111008"/>
+      <rect x="116" y="252" width="8" height="10" fill="#111008"/>
+      <rect x="128" y="252" width="8" height="10" fill="#111008"/>
+
+      <!-- Connector wall left -->
+      <rect x="58" y="232" width="14" height="36" fill="#FF6600"/>
+      <rect x="100" y="220" width="14" height="48" fill="#FF6600"/>
+
+      <!-- === CENTRE MAIN STRUCTURE === -->
+      <!-- Broad base platform -->
+      <rect x="148" y="248" width="1144" height="20" fill="#FF6600"/>
+      <!-- Main facade wall -->
+      <rect x="180" y="185" width="1080" height="83" fill="#FF6600"/>
+
+      <!-- Central grand arch -->
+      <rect x="680" y="185" width="80" height="83" fill="#111008"/>
+      <ellipse cx="720" cy="185" rx="40" ry="22" fill="#111008"/>
+
+      <!-- Side arches left of centre -->
+      <rect x="560" y="200" width="52" height="68" fill="#111008"/>
+      <ellipse cx="586" cy="200" rx="26" ry="16" fill="#111008"/>
+      <rect x="440" y="210" width="44" height="58" fill="#111008"/>
+      <ellipse cx="462" cy="210" rx="22" ry="13" fill="#111008"/>
+      <rect x="330" y="216" width="38" height="52" fill="#111008"/>
+      <ellipse cx="349" cy="216" rx="19" ry="12" fill="#111008"/>
+      <rect x="232" y="222" width="32" height="46" fill="#111008"/>
+      <ellipse cx="248" cy="222" rx="16" ry="10" fill="#111008"/>
+
+      <!-- Side arches right of centre -->
+      <rect x="828" y="200" width="52" height="68" fill="#111008"/>
+      <ellipse cx="854" cy="200" rx="26" ry="16" fill="#111008"/>
+      <rect x="960" y="210" width="44" height="58" fill="#111008"/>
+      <ellipse cx="982" cy="210" rx="22" ry="13" fill="#111008"/>
+      <rect x="1072" y="216" width="38" height="52" fill="#111008"/>
+      <ellipse cx="1091" cy="216" rx="19" ry="12" fill="#111008"/>
+      <rect x="1176" y="222" width="32" height="46" fill="#111008"/>
+      <ellipse cx="1192" cy="222" rx="16" ry="10" fill="#111008"/>
+
+      <!-- Upper tier with chhattris (octagonal turrets) across top -->
+      <!-- Centre tall chhattri -->
+      <rect x="706" y="130" width="28" height="55" fill="#FF6600"/>
+      <polygon points="700,130 720,105 740,130" fill="#FF6600"/>
+      <rect x="708" y="112" width="6" height="8" fill="#FF6600"/>
+      <rect x="718" y="112" width="6" height="8" fill="#FF6600"/>
+      <rect x="728" y="112" width="6" height="8" fill="#FF6600"/>
+      <rect x="710" y="145" width="8" height="10" fill="#111008"/>
+      <rect x="722" y="145" width="8" height="10" fill="#111008"/>
+      <rect x="710" y="162" width="8" height="10" fill="#111008"/>
+      <rect x="722" y="162" width="8" height="10" fill="#111008"/>
+
+      <!-- Chhattri group: left of centre -->
+      <rect x="616" y="148" width="22" height="37" fill="#FF6600"/>
+      <polygon points="611,148 627,128 643,148" fill="#FF6600"/>
+      <rect x="617" y="135" width="5" height="6" fill="#FF6600"/>
+      <rect x="625" y="135" width="5" height="6" fill="#FF6600"/>
+      <rect x="617" y="160" width="6" height="8" fill="#111008"/>
+      <rect x="626" y="160" width="6" height="8" fill="#111008"/>
+      <rect x="617" y="173" width="6" height="8" fill="#111008"/>
+      <rect x="626" y="173" width="6" height="8" fill="#111008"/>
+
+      <rect x="502" y="158" width="20" height="27" fill="#FF6600"/>
+      <polygon points="498,158 512,140 526,158" fill="#FF6600"/>
+      <rect x="503" y="145" width="5" height="6" fill="#FF6600"/>
+      <rect x="511" y="145" width="5" height="6" fill="#FF6600"/>
+      <rect x="503" y="168" width="6" height="8" fill="#111008"/>
+      <rect x="512" y="168" width="6" height="8" fill="#111008"/>
+
+      <rect x="390" y="165" width="18" height="20" fill="#FF6600"/>
+      <polygon points="387,165 399,150 411,165" fill="#FF6600"/>
+      <rect x="391" y="153" width="4" height="5" fill="#FF6600"/>
+      <rect x="398" y="153" width="4" height="5" fill="#FF6600"/>
+
+      <rect x="286" y="170" width="16" height="15" fill="#FF6600"/>
+      <polygon points="283,170 294,157 305,170" fill="#FF6600"/>
+
+      <!-- Chhattri group: right of centre -->
+      <rect x="802" y="148" width="22" height="37" fill="#FF6600"/>
+      <polygon points="797,148 813,128 829,148" fill="#FF6600"/>
+      <rect x="803" y="135" width="5" height="6" fill="#FF6600"/>
+      <rect x="811" y="135" width="5" height="6" fill="#FF6600"/>
+      <rect x="803" y="160" width="6" height="8" fill="#111008"/>
+      <rect x="812" y="160" width="6" height="8" fill="#111008"/>
+      <rect x="803" y="173" width="6" height="8" fill="#111008"/>
+      <rect x="812" y="173" width="6" height="8" fill="#111008"/>
+
+      <rect x="918" y="158" width="20" height="27" fill="#FF6600"/>
+      <polygon points="914,158 928,140 942,158" fill="#FF6600"/>
+      <rect x="919" y="145" width="5" height="6" fill="#FF6600"/>
+      <rect x="927" y="145" width="5" height="6" fill="#FF6600"/>
+      <rect x="919" y="168" width="6" height="8" fill="#111008"/>
+      <rect x="928" y="168" width="6" height="8" fill="#111008"/>
+
+      <rect x="1032" y="165" width="18" height="20" fill="#FF6600"/>
+      <polygon points="1029,165 1041,150 1053,165" fill="#FF6600"/>
+      <rect x="1033" y="153" width="4" height="5" fill="#FF6600"/>
+      <rect x="1040" y="153" width="4" height="5" fill="#FF6600"/>
+
+      <rect x="1138" y="170" width="16" height="15" fill="#FF6600"/>
+      <polygon points="1135,170 1146,157 1157,170" fill="#FF6600"/>
+
+      <!-- Decorative battlements top of main wall -->
+      <g fill="#FF6600">
+        <rect x="188" y="178" width="8" height="7"/>
+        <rect x="202" y="178" width="8" height="7"/>
+        <rect x="216" y="178" width="8" height="7"/>
+        <rect x="310" y="178" width="8" height="7"/>
+        <rect x="324" y="178" width="8" height="7"/>
+        <rect x="420" y="178" width="8" height="7"/>
+        <rect x="434" y="178" width="8" height="7"/>
+        <rect x="530" y="178" width="8" height="7"/>
+        <rect x="544" y="178" width="8" height="7"/>
+        <rect x="644" y="178" width="8" height="7"/>
+        <rect x="658" y="178" width="8" height="7"/>
+        <rect x="774" y="178" width="8" height="7"/>
+        <rect x="788" y="178" width="8" height="7"/>
+        <rect x="896" y="178" width="8" height="7"/>
+        <rect x="910" y="178" width="8" height="7"/>
+        <rect x="1006" y="178" width="8" height="7"/>
+        <rect x="1020" y="178" width="8" height="7"/>
+        <rect x="1112" y="178" width="8" height="7"/>
+        <rect x="1126" y="178" width="8" height="7"/>
+        <rect x="1222" y="178" width="8" height="7"/>
+        <rect x="1236" y="178" width="8" height="7"/>
+      </g>
+
+      <!-- === RIGHT WING mirror of left === -->
+      <!-- Tower R1 (tallest right) -->
+      <rect x="1292" y="175" width="36" height="93" fill="#FF6600"/>
+      <polygon points="1292,175 1310,148 1328,175" fill="#FF6600"/>
+      <rect x="1296" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="1304" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="1312" y="155" width="6" height="8" fill="#FF6600"/>
+      <rect x="1296" y="192" width="8" height="10" fill="#111008"/>
+      <rect x="1308" y="192" width="8" height="10" fill="#111008"/>
+      <rect x="1296" y="212" width="8" height="10" fill="#111008"/>
+      <rect x="1308" y="212" width="8" height="10" fill="#111008"/>
+      <rect x="1296" y="232" width="8" height="10" fill="#111008"/>
+      <rect x="1308" y="232" width="8" height="10" fill="#111008"/>
+      <rect x="1296" y="252" width="8" height="10" fill="#111008"/>
+      <rect x="1308" y="252" width="8" height="10" fill="#111008"/>
+
+      <!-- Tower R2 -->
+      <rect x="1340" y="195" width="32" height="73" fill="#FF6600"/>
+      <polygon points="1340,195 1356,172 1372,195" fill="#FF6600"/>
+      <rect x="1345" y="178" width="5" height="7" fill="#FF6600"/>
+      <rect x="1354" y="178" width="5" height="7" fill="#FF6600"/>
+      <rect x="1344" y="212" width="7" height="9" fill="#111008"/>
+      <rect x="1354" y="212" width="7" height="9" fill="#111008"/>
+      <rect x="1344" y="230" width="7" height="9" fill="#111008"/>
+      <rect x="1354" y="230" width="7" height="9" fill="#111008"/>
+      <rect x="1344" y="248" width="7" height="9" fill="#111008"/>
+      <rect x="1354" y="248" width="7" height="9" fill="#111008"/>
+
+      <!-- Tower R3 -->
+      <rect x="1382" y="210" width="28" height="58" fill="#FF6600"/>
+      <polygon points="1382,210 1396,190 1410,210" fill="#FF6600"/>
+      <rect x="1386" y="196" width="5" height="6" fill="#FF6600"/>
+      <rect x="1393" y="196" width="5" height="6" fill="#FF6600"/>
+      <rect x="1385" y="228" width="6" height="8" fill="#111008"/>
+      <rect x="1394" y="228" width="6" height="8" fill="#111008"/>
+      <rect x="1385" y="244" width="6" height="8" fill="#111008"/>
+      <rect x="1394" y="244" width="6" height="8" fill="#111008"/>
+
+      <!-- Connector wall right -->
+      <rect x="1328" y="220" width="14" height="48" fill="#FF6600"/>
+      <rect x="1370" y="232" width="14" height="36" fill="#FF6600"/>
+    </svg>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Amandeep Jakhar · Jaipur, Rajasthan</span>
+  <div class="footer-logo">AJ</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    rx += (e.clientX - rx) * 0.12;
+    ry += (e.clientY - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+  });
+  function animRing() {
+    rx += (parseFloat(cursor.style.left||0) - rx) * 0.12;
+    ry += (parseFloat(cursor.style.top||0) - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a,button,.skill-tag,.project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+      ring.style.borderColor = 'rgba(255,102,0,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(255,102,0,0.5)';
+    });
+  });
+
+  // Intersection observer for reveal animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.story-item, .exp-card, .cert-row, .asp-pill').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--orange)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
