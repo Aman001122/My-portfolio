@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Amandeep Jakhar</title>
-<link rel="icon" type="image/png" href="./favicon.png">
+<title>Amandeep Jakhar — Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -472,6 +471,21 @@
     color: var(--orange); letter-spacing: 0.08em;
   }
 
+  
+  .cert-row{position:relative;}
+  .cert-credential-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--orange);text-decoration:none;
+    border:.5px solid var(--border-orange);padding:8px 16px;
+    background:transparent;opacity:0;transform:translateY(8px);
+    transition:opacity .25s,transform .25s,background .2s,color .2s;
+    pointer-events:none;margin-left:16px;
+  }
+  .cert-row:hover .cert-credential-btn{opacity:1;transform:none;pointer-events:auto;}
+  .cert-credential-btn:hover{background:var(--orange);color:#fff;}
+
+
   /* ─── ASPIRATION ─── */
   .aspiration-section {
     background: var(--bg);
@@ -698,7 +712,7 @@
           <div class="story-num">03</div>
           <div class="story-text">
             <strong>Interned, shipped, and learned</strong>
-            <p>4 months at Unified Mentor building Python applications for real workflows — error handling, validation, reliability.</p>
+            <p>4 months at Unified Bhubaneswar building Python applications for real workflows — error handling, validation, reliability.</p>
           </div>
         </div>
         <div class="story-item">
@@ -841,7 +855,7 @@
     </div>
     <div class="exp-card" style="transition-delay: 0.15s">
       <div class="exp-role">Python Development Intern</div>
-      <div class="exp-company">Unified Mentor</div>
+      <div class="exp-company">Unified Bhubaneswar</div>
       <div class="exp-period">Nov 2025 – Feb 2026 · 4 months</div>
       <ul class="exp-points">
         <li>Developed 5+ Python applications with file handling and JSON-based data persistence</li>
@@ -893,11 +907,27 @@
       <div class="cert-left">
         <div class="cert-icon">CS50</div>
         <div>
+          <div class="cert-name">CS50 — Cybersecurity</div>
+          <div class="cert-org">CS50 Harvard</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+<div class="cert-date">MAY 2026</div>
+<a class="cert-credential-btn" href="https://certificates.cs50.io/76e6ceb0-f96f-474f-b1ba-8a8e16dae0f7.png?size=letter" target="_blank">Show Credential ↗</a>
+</div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-left">
+        <div class="cert-icon">CS50</div>
+        <div>
           <div class="cert-name">CS50 — Computer Science in Python</div>
           <div class="cert-org">Harvard University</div>
         </div>
       </div>
-      <div class="cert-date">NOV 2024</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+<div class="cert-date">NOV 2024</div>
+<a class="cert-credential-btn" href="https://cs50.harvard.edu/certificates/a69a5c76-8d0c-4634-9b51-05f6fdc4c6ff" target="_blank">Show Credential ↗</a>
+</div>
     </div>
     <div class="cert-row">
       <div class="cert-left">
@@ -907,7 +937,10 @@
           <div class="cert-org">University of Michigan</div>
         </div>
       </div>
-      <div class="cert-date">JUN 2023</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+<div class="cert-date">JUN 2023</div>
+<a class="cert-credential-btn" href="https://www.coursera.org/account/accomplishments/certificate/DWYP4FM7BTW2" target="_blank">Show Credential ↗</a>
+</div>
     </div>
     <div class="cert-row">
       <div class="cert-left">
@@ -917,7 +950,10 @@
           <div class="cert-org">University of California, Santa Cruz</div>
         </div>
       </div>
-      <div class="cert-date">JUL 2023</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+<div class="cert-date">JUL 2023</div>
+<a class="cert-credential-btn" href="https://www.coursera.org/account/accomplishments/certificate/VDR8VESAKA4C" target="_blank">Show Credential ↗</a>
+</div>
     </div>
   </div>
 </section>
